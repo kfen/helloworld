@@ -183,7 +183,11 @@ config PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Simple_Obfs
 
 config PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_V2ray_Plugin
 	bool "Include Shadowsocks V2ray Plugin"
-	default n
+	default y
+
+config PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Xray_Plugin
+	bool "Include Shadowsocks Xray Plugin"
+	default y
 
 config PACKAGE_$(PKG_NAME)_INCLUDE_ShadowsocksR_Libev_Client
 	bool "Include ShadowsocksR Libev Client"
