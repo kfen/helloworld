@@ -1,4 +1,4 @@
-name: Test Build
+name: Start build ssr+ all platform by wk
 
 on:
   pull_request:
