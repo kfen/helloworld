@@ -60,9 +60,9 @@ jobs:
           echo "PACKAGES=$PACKAGES" >> $GITHUB_ENV
 
       - name: Build
-        uses: sbwml/openwrt-gh-action-sdk@helloworld
+        uses: openwrt/gh-action-sdk@main
         env:
-          ARCH: ${{ matrix.arch }}-${{ matrix.tag }}
+          ARCH: ${{ matrix.arch }}
           FEEDNAME: packages_ci
           V: s
 
