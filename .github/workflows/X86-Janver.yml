@@ -60,14 +60,14 @@ jobs:
           echo "PACKAGES=$PACKAGES" >> $GITHUB_ENV
 
       - name: Build
-        uses: immortalwrt/gh-action-sdk@v5
+        uses: sbwml/openwrt-gh-action-sdk@helloworld
         env:
           ARCH: ${{ matrix.arch }}-${{ env.BRANCH }}
           FEEDNAME: packages_ci
           
 
       - name: Move created packages to project dir
-        run: cp bin/packages/${{ matrix.arch }}/packages_ci/*.apk . || true
+        run: cp bin/packages/${{ matrix.arch }}/packages_ci/*.ipk . || true
 
       - name: Collect metadata
         run: |
@@ -102,7 +102,7 @@ jobs:
           done
           echo >> PKG-INFO
           echo Full file listing: >> PKG-INFO
-          ls -al *.apk >> PKG-INFO || true
+          ls -al *.ipk >> PKG-INFO || true
           cat PKG-INFO
 
       - name: Store packages
@@ -110,5 +110,5 @@ jobs:
         with:
           name: ${{env.ARCHIVE_NAME}}-packages
           path: |
-            *.apk
+            *.ipk
             PKG-INFO
