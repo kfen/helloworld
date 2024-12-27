@@ -62,7 +62,7 @@ jobs:
       - name: Build
         uses: sbwml/openwrt-gh-action-sdk@helloworld
         env:
-          ARCH: ${{ matrix.arch }}
+          ARCH: ${{ matrix.arch }}-${{ matrix.tag }}
           FEEDNAME: packages_ci
           V: s
 
