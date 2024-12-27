@@ -60,7 +60,7 @@ jobs:
           echo "PACKAGES=$PACKAGES" >> $GITHUB_ENV
 
       - name: Build
-        uses: openwrt/gh-action-sdk@main
+        uses: kfen/openwrt-gh-action-sdk@helloworld
         env:
           ARCH: ${{ matrix.arch }}
           FEEDNAME: packages_ci
