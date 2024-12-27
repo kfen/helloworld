@@ -60,21 +60,15 @@ jobs:
           echo "PACKAGES=$PACKAGES" >> $GITHUB_ENV
 
       - name: Build
-        uses: sbwml/openwrt-gh-action-sdk@helloworld
+        uses: immortalwrt/gh-action-sdk@v5
         env:
-          ARCH: ${{ matrix.arch }}-${{ matrix.tag }}
+          ARCH: ${{ matrix.arch }}
           FEEDNAME: packages_ci
-          PACKAGES: chinadns-ng dns2socks dns2tcp hysteria ipt2socks lua-neturl luci-app-homeproxy luci-app-mihomo luci-app-openclash luci-app-passwall luci-app-passwall2 luci-app-ssr-plus microsocks naiveproxy pdnsd redsocks2 shadow-tls shadowsocks-rust shadowsocksr-libev simple-obfs sing-box tcping trojan mosdns trojan-plus tuic-client v2ray-core v2ray-geodata xray-core xray-plugin
-          KEY_BUILD: ${{ secrets.sign_key }}
-          NO_REFRESH_CHECK: true
-          IGNORE_ERRORS: true
-          
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.tag }}-${{ matrix.arch }}
-          path: bin/packages/${{ matrix.arch }}/packages_ci/*.ipk
+          V: s
 
+      - name: Move created packages to project dir
+        run: cp bin/packages/${{ matrix.arch }}/packages_ci/*.ipk . || true
+          
       - name: Collect metadata
         run: |
           MERGE_ID=$(git rev-parse --short HEAD)
@@ -116,5 +110,7 @@ jobs:
         with:
           name: ${{env.ARCHIVE_NAME}}-packages
           path: |
+            Packages
+            Packages.*
             *.ipk
             PKG-INFO
