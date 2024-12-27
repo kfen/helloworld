@@ -62,7 +62,7 @@ jobs:
       - name: Build
         uses: kfen/openwrt-gh-action-sdk@helloworld
         env:
-          ARCH: ${{ matrix.arch }}-${{ matrix.tag }}
+          ARCH: ${{ matrix.arch }}-${{ env.BRANCH }}
           FEEDNAME: packages_ci
    
       - name: Move created packages to project dir
