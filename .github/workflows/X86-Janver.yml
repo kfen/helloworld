@@ -67,7 +67,7 @@ jobs:
           
 
       - name: Move created packages to project dir
-        run: cp bin/packages/${{ matrix.arch }}/packages_ci/*.ipk . || true
+        run: cp bin/packages/${{ matrix.arch }}/packages_ci/*.apk . || true
 
       - name: Collect metadata
         run: |
@@ -102,7 +102,7 @@ jobs:
           done
           echo >> PKG-INFO
           echo Full file listing: >> PKG-INFO
-          ls -al *.ipk >> PKG-INFO || true
+          ls -al *.apk >> PKG-INFO || true
           cat PKG-INFO
 
       - name: Store packages
@@ -110,5 +110,5 @@ jobs:
         with:
           name: ${{env.ARCHIVE_NAME}}-packages
           path: |
-            *.ipk
+            *.apk
             PKG-INFO
