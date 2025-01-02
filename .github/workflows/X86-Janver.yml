@@ -60,14 +60,14 @@ jobs:
           echo "PACKAGES=$PACKAGES" >> $GITHUB_ENV
 
       - name: Build
-        uses: kfen/openwrt-gh-action-sdk@helloworld
+        uses: immortalwrt/gh-action-sdk@v4.1
         env:
           ARCH: ${{ matrix.arch }}-${{ env.BRANCH }}
           FEEDNAME: packages_ci
-   
+
       - name: Move created packages to project dir
-        run: cp bin/packages/${{ matrix.arch }}/packages_ci/*.ipk . || true
-          
+        run: cp bin/packages/${{ matrix.arch }}/packages_ci/*.apk . || true
+
       - name: Collect metadata
         run: |
           MERGE_ID=$(git rev-parse --short HEAD)
@@ -89,10 +89,8 @@ jobs:
           Download-URL: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
           Summary: $PACKAGES
           Platform: ${{ matrix.arch }}
-
           Packages for ImmortalWrt $BRANCH running on ${{matrix.arch}}, built from PR $PRNUMBER
           at commit $HEAD_ID, against $BRANCH at commit $BASE_ID, with merge SHA $MERGE_ID.
-
           Modified packages:
           _EOF_
           for p in $PACKAGES
@@ -101,7 +99,7 @@ jobs:
           done
           echo >> PKG-INFO
           echo Full file listing: >> PKG-INFO
-          ls -al *.ipk >> PKG-INFO || true
+          ls -al *.apk >> PKG-INFO || true
           cat PKG-INFO
 
       - name: Store packages
@@ -109,7 +107,5 @@ jobs:
         with:
           name: ${{env.ARCHIVE_NAME}}-packages
           path: |
-            Packages
-            Packages.*
-            *.ipk
+            *.apk
             PKG-INFO
